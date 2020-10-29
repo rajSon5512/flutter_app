@@ -18,6 +18,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp>{
 
+  final questions=const[{'questiontext':'What is your favorite color?', 'answer':['red','blue','green']},
+    {'questiontext':'Most favorite thing to eat?', 'answer':['panipuri','bhelpuri','pavbhaji']},
+    {'questiontext':'What is your favorite activity?', 'answer':['run','read','music']},
+  ];
+
   var _questionIndex=0;
 
   void answerQuestion(){
@@ -25,11 +30,9 @@ class _MyAppState extends State<MyApp>{
 
     setState(() {
 
-       if(_questionIndex==2) {
-         _questionIndex=0;
-       }else{
-         _questionIndex=_questionIndex+1;
-       }
+      if(_questionIndex<=questions.length){
+        _questionIndex=_questionIndex+1;
+      }
 
     });
 
@@ -40,24 +43,19 @@ class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
 
-    var questions=[{'questiontext':'What is your favorite color?', 'answer':['red','blue','green']},
-                   {'questiontext':'Most favorite thing to eat?', 'answer':['panipuri','bhelpuri','pavbhaji']},
-                   {'questiontext':'What is your favorite activity?', 'answer':['run','read','music']},
-                  ];
-
     return MaterialApp(                      //class with custorecurot
       home: Scaffold(                        //scaffold provide basic architecture
         appBar: AppBar(
           title: Text('First Flutter Application'),
         ),
-        body: Column(
+        body:_questionIndex<=questions.length-1?Column(
           children: [
             Question(questions[_questionIndex]['questiontext']),
             ...(questions[_questionIndex]['answer'] as List<String>).map((answer){
                 return Answer(answerQuestion,answer);
             }).toList(),
           ],
-        ),
+        ):Center(child: Text('You did it.'),),
       )
     );
   }
