@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Answer.dart';
 import 'package:flutter_app/Question.dart';
+import 'package:flutter_app/Quiz.dart';
+import 'package:flutter_app/Result.dart';
 
 void main(){
   runApp(MyApp());
@@ -48,14 +50,9 @@ class _MyAppState extends State<MyApp>{
         appBar: AppBar(
           title: Text('First Flutter Application'),
         ),
-        body:_questionIndex<=questions.length-1?Column(
-          children: [
-            Question(questions[_questionIndex]['questiontext']),
-            ...(questions[_questionIndex]['answer'] as List<String>).map((answer){
-                return Answer(answerQuestion,answer);
-            }).toList(),
-          ],
-        ):Center(child: Text('You did it.'),),
+        body:_questionIndex<=questions.length-1?
+            Quiz(answerQuestion,questions,_questionIndex)
+            :Result(),
       )
     );
   }
