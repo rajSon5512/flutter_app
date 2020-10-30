@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp>{
         ),
         body:_questionIndex<=questions.length-1?
             Quiz(answerQuestion,questions,_questionIndex)
-            :Result(),
+            :Result(_finalscore),
       )
     );
   }
